@@ -25,13 +25,12 @@ class UserController extends Controller
         //     })
         //     ->paginate();
 
-        if($request->has('searchUser')){
-            $user['user']=User::where('username', 'LIKE', '%' .$request->searchUser.'%')->paginate(5);
-        }else{
-            $user['user']=User::orderBy('username', 'asc')->paginate(5);
+        if ($request->has('searchUser')) {
+            $user['user'] = User::where('username', 'LIKE', '%' . $request->searchUser . '%')->paginate(5);
+        } else {
+            $user['user'] = User::orderBy('username', 'asc')->paginate(5);
         }
         return view('usermgt.index', $user);
-
     }
 
     /**
@@ -42,7 +41,7 @@ class UserController extends Controller
     public function create()
     {
         //
-        $user['user']=User::all();
+        $user['user'] = User::all();
         return view('usermgt.create', $user);
     }
 
@@ -61,12 +60,12 @@ class UserController extends Controller
             'lastname' => 'max:255|min:2',
             'email' => 'required|email|max:255|unique:users,email',
             'password' => 'required|max:255',
-            'about'=> 'required|max:255',
+            'about' => 'required|max:255',
             'role' => 'required'
         ]);
 
         User::create($request->post());
-        return redirect()->route('usermgt.index')->with('success','Data user berhasil ditambahkan');
+        return redirect()->route('usermgt.index')->with('success', 'Data user berhasil ditambahkan');
     }
 
     /**
@@ -78,7 +77,7 @@ class UserController extends Controller
     public function show(User $user)
     {
         //
-        return view ('usermgt.show', compact('usermgt'));
+        return view('usermgt.show', compact('usermgt'));
     }
 
     /**
@@ -103,7 +102,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         //
-        
+
         $request->validate([
             'firstname' => ['max:100'],
             'lastname' => ['max:100'],
@@ -114,11 +113,11 @@ class UserController extends Controller
             'about' => ['max:255'],
             'role' => ['required']
         ]);
-        
+
         $id = User::find($id);
         $id->fill($request->post())->save();
 
-        return redirect()->route('usermgt.index')->with('success','Data user berhasil diedit');
+        return redirect()->route('usermgt.index')->with('success', 'Data user berhasil diedit');
     }
 
     /**
@@ -131,6 +130,6 @@ class UserController extends Controller
     {
         $id = User::find($id);
         $id->delete();
-        return redirect()->route('usermgt.index')->with('success','Data user berhasil dihapus');
+        return redirect()->route('usermgt.index')->with('success', 'Data user berhasil dihapus');
     }
 }

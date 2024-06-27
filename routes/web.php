@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+	return view('welcome');
 });
 
 use App\Http\Controllers\HomeController;
@@ -47,22 +47,27 @@ use App\Models\FPL;
 
 
 
-Route::get('/', function () {return redirect('/dashboard');})->middleware('auth');
-	Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
-	Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
-	Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
+Route::get('/', function () {
+	return redirect('/dashboard');
+})->middleware('auth');
+Route::get('/login', [LoginController::class, 'show'])->middleware('guest')->name('login');
+Route::post('/login', [LoginController::class, 'login'])->middleware('guest')->name('login.perform');
+Route::get('/dashboard', [HomeController::class, 'index'])->name('home')->middleware('auth');
 
-	
+
 Route::group(['middleware' => 'auth'], function () {
 	Route::get('/virtual-reality', [HomeController::class, 'index'])->name('virtual-reality');
 	Route::get('/rtl', [HomeController::class, 'index'])->name('rtl');
+
 	Route::get('/profile', [UserProfileController::class, 'show'])->name('profile');
-	Route::post('/profile', [UserProfileController::class, 'update'])->name('profile.update');
-	Route::get('/profile-static', [HomeController::class, 'index'])->name('profile-static'); 
+	Route::post('/profile/update', [UserProfileController::class, 'update'])->name('profile.update');
+	Route::post('/profile/update_pw', [UserProfileController::class, 'update_pw'])->name('profile.update_pw');
+
+	Route::get('/profile-static', [HomeController::class, 'index'])->name('profile-static');
 	Route::get('/sign-in-static', [HomeController::class, 'index'])->name('sign-in-static');
 	Route::get('/sign-up-static', [HomeController::class, 'index'])->name('sign-up-static');
 
-	
+
 	// Route::resource('/informasi', InformasiController::class);
 	Route::resource('/usermgt', UserController::class);
 	Route::resource('/atsmessage', ATSMessageController::class);
@@ -90,5 +95,4 @@ Route::group(['middleware' => 'auth'], function () {
 	Route::get('/get-route', 'App\Http\Controllers\RouteController@getRoute');
 	Route::get('/{page}', [PageController::class, 'index'])->name('page');
 	Route::post('logout', [LoginController::class, 'logout'])->name('logout');
-
 });

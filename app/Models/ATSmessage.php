@@ -16,6 +16,7 @@ class ATSmessage extends Model
         'priority',
         'free_text_ats',
         'file_path',
+        'filld_by',
     ];
 
     public function fromUser()

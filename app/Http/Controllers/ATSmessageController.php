@@ -54,12 +54,14 @@ class ATSmessageController extends Controller
             'priority' => 'required',
             'free_text_ats' => 'required',
             'file' => 'nullable|file',
+            'filled-by-input' => 'required',
         ]);
 
         $filePath = null;
         if ($request->hasFile('file')) {
             $filePath = $request->file('file')->store('uploads', 'public');
         }
+
 
         foreach ($toUserIds as $toUserId) {
             ATSmessage::create([
@@ -69,8 +71,10 @@ class ATSmessageController extends Controller
                 'priority' => $request->input('priority'),
                 'free_text_ats' => $request->input('free_text_ats'),
                 'file_path' => $filePath,
+                'filld_by' => $request->input('filled-by-input'),
             ]);
         }
+
 
         return redirect()->back()->with('success', 'Pesan Free Text ATS berhasil dikirim!');
     }

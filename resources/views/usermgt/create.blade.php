@@ -1,29 +1,28 @@
 @extends('layouts.app')
 
 @can ('isAdmin')
-    @section('content')
-        @include('layouts.navbars.auth.topnav', ['title' => 'Tambah User'])
-        <main class="main-content mt-0 bg-dark">
-            <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg"
-                style="background-image: url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-position: top;">
-                <span class="mask bg-gradient-dark opacity-6"></span>
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-5 text-center mx-auto">
-                            <h1 class="text-white mb-2 mt-5">Fitur Tambah Data User/ Bandara</h1>
-                            <p class="text-lead text-white">Silakan tambah data user/ bandara selengkap mungkin</p>
-                        </div>
-                    </div>
+@section('content')
+@include('layouts.navbars.auth.topnav', ['title' => 'Tambah User'])
+<main class="main-content mt-0 bg-dark">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('https://images.unsplash.com/photo-1464037866556-6812c9d1c72e?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'); background-position: top;">
+        <span class="mask bg-gradient-dark opacity-6"></span>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-5 text-center mx-auto">
+                    <h1 class="text-white mb-2 mt-5">Fitur Tambah Data User/ Bandara</h1>
+                    <p class="text-lead text-white">Silakan tambah data user/ bandara selengkap mungkin</p>
                 </div>
             </div>
-            <div class="container mb-1">
-                <div class="row mt-lg-n10 mt-md-n11 mt-n10justify-content-center">
-                    <div class="col-xl-11 col-lg-11 col-md-11 mx-auto">
-                        <div class="card z-index-0">
-                            <div class="card-header text-center pt-4">
-                                <h5>Masukkan informasi user/ bandara</h5>
-                            </div>
-                            <!-- <div class="row px-xl-5 px-sm-4 px-3">
+        </div>
+    </div>
+    <div class="container mb-1">
+        <div class="row mt-lg-n10 mt-md-n11 mt-n10justify-content-center">
+            <div class="col-xl-11 col-lg-11 col-md-11 mx-auto">
+                <div class="card z-index-0">
+                    <div class="card-header text-center pt-4">
+                        <h5>Masukkan informasi user/ bandara</h5>
+                    </div>
+                    <!-- <div class="row px-xl-5 px-sm-4 px-3">
                                 <div class="col-3 ms-auto px-1">
                                     <a class="btn btn-outline-light w-100" href="javascript:;">
                                         <svg width="24px" height="32px" viewBox="0 0 64 64" version="1.1">
@@ -81,69 +80,69 @@
                                     </p>
                                 </div>
                             </div> -->
-                            <div class="card-body">
-                                <form method="POST" action="{{ route('usermgt.store') }}"  class="row">
-                                    @csrf
-                                    <div class="col-md-4 mb-1">
-                                        <label for="Fusername" class="form-label">Username</label>
-                                        <input type="text" name="username" class="form-control" required placeholder="Username" aria-label="Name" >
-                                        @error('username') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                    <div class="col-md-4 mb-1">
-                                        <label for="Ffname" class="form-label">Nama depan</label>
-                                        <input type="text" name="firstname" class="form-control" required placeholder="Nama depan" aria-label="firstname" >
-                                        @error('firstname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                    <div class="col-md-4 mb-1">
-                                        <label for="Flname" class="form-label">Nama belakang</label>
-                                        <input type="text" name="lastname" class="form-control" required placeholder="Nama belakang" aria-label="lastname" >
-                                        @error('lastname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                    <div class="col-md-12 mb-1">
-                                        <label for="Femail" class="form-label">Email</label>
-                                        <input type="email" name="email" class="form-control" required placeholder="Email" aria-label="Email">
-                                        @error('email') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                    <div class="col-md-12 mb-1">
-                                        <label for="Fpassword" class="form-label">Password (minimal 5 abjad, huruf, atau simbol)</label>
-                                        <input type="password" name="password" class="form-control" required placeholder="Password" aria-label="Password">
-                                        @error('password') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                    <div class="col-md-12 mb-1">
-                                        <label for="Fjabatan" class="form-label">Jabatan</label>
-                                        <input type="text" name="about" class="form-control" required placeholder="Jabatan" aria-label="Jabatan">
-                                        @error('about') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                    <div class="col-md-12 mb-1">
-                                        <label for="Frole" class="form-label">Role</label>
-                                        <select class="form-control" name="role" id="exampleFormControlSelect1" placeholder="Role" aria-label="Jabatan" required>
-                                            <option>user</option>
-                                            <option>admin</option>
-                                        </select>
-                                        @error('role') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
-                                    </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Tambahkan!</button>
-                                    </div>
-                                </form>
+                    <div class="card-body">
+                        <form method="POST" action="{{ route('usermgt.store') }}" class="row">
+                            @csrf
+                            <div class="col-md-4 mb-1">
+                                <label for="Fusername" class="form-label">Username</label>
+                                <input type="text" name="username" class="form-control" required placeholder="Username" aria-label="Name">
+                                @error('username') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
                             </div>
-                        </div>
+                            <div class="col-md-4 mb-1">
+                                <label for="Ffname" class="form-label">Nama depan</label>
+                                <input type="text" name="firstname" class="form-control" required placeholder="Nama depan" aria-label="firstname">
+                                @error('firstname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+                            <div class="col-md-4 mb-1">
+                                <label for="Flname" class="form-label">Nama belakang</label>
+                                <input type="text" name="lastname" class="form-control" required placeholder="Nama belakang" aria-label="lastname">
+                                @error('lastname') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+                            <div class="col-md-12 mb-1">
+                                <label for="Femail" class="form-label">Email</label>
+                                <input type="email" name="email" class="form-control" required placeholder="Email" aria-label="Email">
+                                @error('email') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+                            <div class="col-md-12 mb-1">
+                                <label for="Fpassword" class="form-label">Password (minimal 5 abjad, huruf, atau simbol)</label>
+                                <input type="password" name="password" class="form-control" required placeholder="Password" aria-label="Password">
+                                @error('password') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+                            <div class="col-md-12 mb-1">
+                                <label for="Fjabatan" class="form-label">Jabatan</label>
+                                <input type="text" name="about" class="form-control" required placeholder="Jabatan" aria-label="Jabatan">
+                                @error('about') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+                            <div class="col-md-12 mb-1">
+                                <label for="Frole" class="form-label">Role</label>
+                                <select class="form-control" name="role" id="exampleFormControlSelect1" placeholder="Role" aria-label="Jabatan" required>
+                                    <option>user</option>
+                                    <option>admin</option>
+                                </select>
+                                @error('role') <p class='text-danger text-xs pt-1'> {{ $message }} </p> @enderror
+                            </div>
+                            <div class="text-center">
+                                <button type="submit" class="btn bg-gradient-dark w-100 my-4 mb-2">Tambahkan!</button>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
-        </main>
-        @include('layouts.footers.auth.footer')
-    @endsection
-@elsecan ('isUser')
-    @section('content')
-        @include('layouts.navbars.auth.topnav', ['title' => 'User Management'])
-        <div class="row mt-4 mx-4" overflow-x: hidden;>
-            <div class="col-12">
-                <div class="alert alert-light" role="alert">
-                    <strong>ANDA TIDAK MEMILIKI AKSES FITUR INI!</strong>
-                </div>
-            </div>
         </div>
-        @include('layouts.footers.auth.footer')
-    @endsection
+    </div>
+</main>
+@include('layouts.footers.auth.footer')
+@endsection
+@elsecan ('isUser')
+@section('content')
+@include('layouts.navbars.auth.topnav', ['title' => 'User Management'])
+<div class="row mt-4 mx-4" overflow-x: hidden;>
+    <div class="col-12">
+        <div class="alert alert-light" role="alert">
+            <strong>ANDA TIDAK MEMILIKI AKSES FITUR INI!</strong>
+        </div>
+    </div>
+</div>
+@include('layouts.footers.auth.footer')
+@endsection
 @endcan

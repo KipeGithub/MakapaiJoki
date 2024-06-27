@@ -1,9 +1,9 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @can ('isAdmin')
-    @section('content')
-        @include('layouts.navbars.auth.topnav', ['title' => 'Editing Profile'])
-        <!-- <div class="card shadow-lg mx-4 card-profile-bottom">
+@section('content')
+@include('layouts.navbars.auth.topnav', ['title' => 'Editing Profile'])
+<!-- <div class="card shadow-lg mx-4 card-profile-bottom">
             <div class="card-body p-3">
                 <div class="row gx-4">
                     <div class="col-auto">
@@ -51,140 +51,140 @@
                 </div>
             </div>
         </div> -->
-        <div id="alert">
-            @include('components.alert')
-        </div>
-        @if(session('status'))
-            <div class="alert alert-success mb-1 mt-1">
-                {{ session('status') }}
-            </div>
-        @endif
-        <div class="container-fluid py-4">
-            <div class="row">
-                <div class="col-md">
-                    <div class="card">
-                        <form action="{{ route('usermgt.update',$usermgt->id) }}" method="POST" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="card-header pb-0">
-                                <div class="d-flex align-items-center">
-                                    <p class="mb-0">Edit Profile</p>
-                                    <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="text-uppercase text-sm">Informasi Pengguna</p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Username</label>
-                                            <input class="form-control" type="text" name="username" value="{{ $usermgt->username}}" disabled>
-                                            @error('username')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror                                    
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Alamat email</label>
-                                            <input class="form-control" type="email" name="email" value="{{ $usermgt->email}}" disabled>
-                                            @error('email')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Nama depan</label>
-                                            <input class="form-control" type="text" name="firstname"  value="{{ $usermgt->firstname}}">
-                                            @error('firstname')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Nama Belakang</label>
-                                            <input class="form-control" type="text" name="lastname" value="{{ $usermgt->lastname}}">
-                                            @error('lastname')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="horizontal dark">
-                                <p class="text-uppercase text-sm">Informasi Kontak</p>
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Alamat</label>
-                                            <input class="form-control" type="text" name="address"
-                                                value="{{ $usermgt->address}}">
-                                            @error('address')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror  
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Kota</label>
-                                            <input class="form-control" type="text" name="city" value="{{ $usermgt->city}}">
-                                            @error('city')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Provinsi</label>
-                                            <input class="form-control" type="text" name="country" value="{{ $usermgt->country}}">
-                                            @error('country')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Kode Pos</label>
-                                            <input class="form-control" type="text" name="postal" value="{{ $usermgt->postal}}">
-                                            @error('postal')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                </div>
-                                <hr class="horizontal dark">
-                                <p class="text-uppercase text-sm">Tentang Saya</p>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Jabatan</label>
-                                            <input class="form-control" type="text" name="about"
-                                                value="{{ $usermgt->about}}">
-                                            @error('about')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <div class="form-group">
-                                            <label for="example-text-input" class="form-control-label">Role</label>
-                                                <select class="form-control" name="role" id="exampleFormControlSelect1" placeholder="Role" aria-label="Jabatan" required>
-                                                    <option selected disabled> << Saat ini: {{ $usermgt->role}}>> </option>
-                                                    <option>user</option>
-                                                    <option>admin</option>
-                                                </select>
-                                            @error('role')
-                                            <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                                            @enderror 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
+<div id="alert">
+    @include('components.alert')
+</div>
+@if(session('status'))
+<div class="alert alert-success mb-1 mt-1">
+    {{ session('status') }}
+</div>
+@endif
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md">
+            <div class="card">
+                <form action="{{ route('usermgt.update',$usermgt->id) }}" method="POST" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="card-header pb-0">
+                        <div class="d-flex align-items-center">
+                            <p class="mb-0">Edit Profile</p>
+                            <button type="submit" class="btn btn-primary btn-sm ms-auto">Save</button>
+                        </div>
                     </div>
-                </div>
-                <!-- <div class="col-md-4">
+                    <div class="card-body">
+                        <p class="text-uppercase text-sm">Informasi Pengguna</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Username</label>
+                                    <input class="form-control" type="text" name="username" value="{{ $usermgt->username}}" disabled>
+                                    @error('username')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Alamat email</label>
+                                    <input class="form-control" type="email" name="email" value="{{ $usermgt->email}}" disabled>
+                                    @error('email')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Nama depan</label>
+                                    <input class="form-control" type="text" name="firstname" value="{{ $usermgt->firstname}}">
+                                    @error('firstname')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Nama Belakang</label>
+                                    <input class="form-control" type="text" name="lastname" value="{{ $usermgt->lastname}}">
+                                    @error('lastname')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="horizontal dark">
+                        <p class="text-uppercase text-sm">Informasi Kontak</p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Alamat</label>
+                                    <input class="form-control" type="text" name="address" value="{{ $usermgt->address}}">
+                                    @error('address')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Kota</label>
+                                    <input class="form-control" type="text" name="city" value="{{ $usermgt->city}}">
+                                    @error('city')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Provinsi</label>
+                                    <input class="form-control" type="text" name="country" value="{{ $usermgt->country}}">
+                                    @error('country')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Kode Pos</label>
+                                    <input class="form-control" type="text" name="postal" value="{{ $usermgt->postal}}">
+                                    @error('postal')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <hr class="horizontal dark">
+                        <p class="text-uppercase text-sm">Tentang Saya</p>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Jabatan</label>
+                                    <input class="form-control" type="text" name="about" value="{{ $usermgt->about}}">
+                                    @error('about')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="example-text-input" class="form-control-label">Role</label>
+                                    <select class="form-control" name="role" id="exampleFormControlSelect1" placeholder="Role" aria-label="Jabatan" required>
+                                        <option selected disabled>
+                                            << Saat ini: {{ $usermgt->role}}>>
+                                        </option>
+                                        <option>user</option>
+                                        <option>admin</option>
+                                    </select>
+                                    @error('role')
+                                    <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- <div class="col-md-4">
                     <div class="card card-profile">
                         <img src="/img/bg-profile.jpg" alt="Image placeholder" class="card-img-top">
                         <div class="row justify-content-center">
@@ -244,20 +244,20 @@
                         </div>
                     </div>
                 </div> -->
-            </div>
-            @include('layouts.footers.auth.footer')
-        </div>
-    @endsection
+    </div>
+    @include('layouts.footers.auth.footer')
+</div>
+@endsection
 @elsecan ('isUser')
-    @section('content')
-        @include('layouts.navbars.auth.topnav', ['title' => 'User Management'])
-        <div class="row mt-4 mx-4" overflow-x: hidden;>
-            <div class="col-12">
-                <div class="alert alert-light" role="alert">
-                    <strong>ANDA TIDAK MEMILIKI AKSES FITUR INI!</strong>
-                </div>
-            </div>
+@section('content')
+@include('layouts.navbars.auth.topnav', ['title' => 'User Management'])
+<div class="row mt-4 mx-4" overflow-x: hidden;>
+    <div class="col-12">
+        <div class="alert alert-light" role="alert">
+            <strong>ANDA TIDAK MEMILIKI AKSES FITUR INI!</strong>
         </div>
-        @include('layouts.footers.auth.footer')
-    @endsection
+    </div>
+</div>
+@include('layouts.footers.auth.footer')
+@endsection
 @endcan

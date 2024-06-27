@@ -23,10 +23,10 @@ return new class extends Migration
             $table->string('message_id_part2');
             $table->string('message_id_part3');
             $table->string('origin');
-            $table->dateTime('issued');
+            $table->string('issued');
             $table->string('type');
             $table->string('location');
-            $table->dateTime('observed');
+            $table->string('observed');
             $table->text('free_text_metar');
             $table->string('file')->nullable();
             $table->timestamps();

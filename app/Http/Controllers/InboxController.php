@@ -61,13 +61,11 @@ class InboxController extends Controller
         if (!$message) {
             return redirect('/inbox')->with('error', 'Message not found');
         }
-    
+
         // Debugging
         // dd($message);
-        
-        return view('inbox.show_ats', ['message' => $message]);
 
-        
+        return view('inbox.show_ats', ['message' => $message]);
     }
 
     public function showFpl($id)
@@ -77,7 +75,7 @@ class InboxController extends Controller
         if (!$message) {
             return redirect('/inbox')->with('error', 'Message not found');
         }
-    
+
         // Debugging
         // dd($message);
 
@@ -92,10 +90,10 @@ class InboxController extends Controller
         if (!$message) {
             return redirect('/inbox')->with('error', 'Message not found');
         }
-    
+
         // Debugging
         // dd($message);
-        
+
         return view('inbox.show_metar', ['message' => $message]);
     }
 
@@ -107,10 +105,10 @@ class InboxController extends Controller
         if (!$message) {
             return redirect('/inbox')->with('error', 'Message not found');
         }
-    
+
         // Debugging
         // dd($message);
-        
+
         return view('inbox.show_notam', ['message' => $message]);
     }
 

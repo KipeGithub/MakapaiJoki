@@ -24,6 +24,8 @@ class meteo extends Model
         'observed',
         'free_text_metar',
         'file',
+        'filled_by',
+
     ];
 
     public function fromUser()
