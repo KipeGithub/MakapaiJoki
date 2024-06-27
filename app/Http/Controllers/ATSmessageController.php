@@ -41,9 +41,16 @@ class ATSmessageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (in_array('all', $request->to_user_id)) {
+            $toUserIds = User::pluck('id')->toArray();
+        } else {
+            $toUserIds = $request->to_user_id;
+        }
+
+        $request->merge(['to_user_id' => $toUserIds]);
         $request->validate([
-            'to_user_id' => 'required|exists:users,id',
+            'to_user_id' => 'required|array',
+            'to_user_id.*' => 'exists:users,id',
             'priority' => 'required',
             'free_text_ats' => 'required',
             'file' => 'nullable|file',
@@ -54,17 +61,20 @@ class ATSmessageController extends Controller
             $filePath = $request->file('file')->store('uploads', 'public');
         }
 
-        ATSmessage::create([
-            'from_user_id' => Auth::id(),
-            'to_user_id' => $request->input('to_user_id'),
-            'filling_time' => now(),
-            'priority' => $request->input('priority'),
-            'free_text_ats' => $request->input('free_text_ats'),
-            'file_path' => $filePath,
-        ]);
+        foreach ($toUserIds as $toUserId) {
+            ATSmessage::create([
+                'from_user_id' => Auth::id(),
+                'to_user_id' => $toUserId,
+                'filling_time' => now(),
+                'priority' => $request->input('priority'),
+                'free_text_ats' => $request->input('free_text_ats'),
+                'file_path' => $filePath,
+            ]);
+        }
 
         return redirect()->back()->with('success', 'Pesan Free Text ATS berhasil dikirim!');
     }
+
 
     /**
      * Display the specified resource.
@@ -75,7 +85,7 @@ class ATSmessageController extends Controller
     public function show(ATSmessage $aTSmessage)
     {
         //
-        return view ('ATSmessage.show', compact('usermgt'));
+        return view('ATSmessage.show', compact('usermgt'));
     }
 
     /**

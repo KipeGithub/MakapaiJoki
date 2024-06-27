@@ -1,11 +1,11 @@
 @extends('layouts.app', ['class' => 'g-sidenav-show bg-gray-100'])
 
 @section('content')
-    @include('layouts.navbars.auth.topnav', ['title' => 'Your Profile'])
-    <div class="card shadow-lg mx-4 card-profile-bottom">
-        <div class="card-body p-3">
-            <div class="row gx-4">
-                <h4>Sender Identity</h1>
+@include('layouts.navbars.auth.topnav', ['title' => 'Your Profile'])
+<div class="card shadow-lg mx-4 card-profile-bottom">
+    <div class="card-body p-3">
+        <div class="row gx-4">
+            <h4>Sender Identity</h1>
                 <div class="col-auto">
                     <div class="avatar avatar-xl position-relative">
                         <img src="/img/team-1.jpg" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
@@ -23,30 +23,30 @@
                 </div>
                 <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
                 </div>
-            </div>
         </div>
     </div>
-    <div id="alert">
-        @include('components.alert')
-    </div>
-    <div class="container-fluid py-4">
-        <div class="row">
-            <div class="col-md">
-                <div class="card">
+</div>
+<div id="alert">
+    @include('components.alert')
+</div>
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-md">
+            <div class="card">
                 @if (session('success'))
-                    <div class="alert alert-success">
-                        {{ session('success') }}
-                    </div>
+                <div class="alert alert-success">
+                    {{ session('success') }}
+                </div>
                 @endif
                 @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <strong>Whoops!</strong> Terdapat masalah dengan inputan anda.<br><br>
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
+                <div class="alert alert-danger">
+                    <strong>Whoops!</strong> Terdapat masalah dengan inputan anda.<br><br>
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
                 @endif
                 <form role="form" method="POST" action="{{ route('atsmessage.store') }}" enctype="multipart/form-data">
                     @csrf
@@ -66,9 +66,10 @@
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="to-input" class="form-control-label">To User<span class="text-danger">*</span></label>
-                                    <select class="form-control" name="to_user_id">
+                                    <select class="form-control chosen-select" name="to_user_id[]" multiple="multiple">
+                                        <option value="all">Pilih Semua</option>
                                         @foreach($users as $user)
-                                            <option value="{{ $user->id }}">{{ $user->username }}</option>
+                                        <option value="{{ $user->id }}">{{ $user->username }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -101,14 +102,14 @@
                                     <input class="form-control" type="file" id="file-input" name="file">
                                 </div>
                             </div>
-                            <h6><span class="text-danger">*</span> = wajib diisi </h6> 
+                            <h6><span class="text-danger">*</span> = wajib diisi </h6>
 
                             <button type="reset" class="btn btn-secondary btn-sm">Reset Form</button>
                             <button type="submit" class="btn btn-primary btn-sm ms-auto">Kirim Pesan</button>
                         </div>
                     </div>
                 </form>
-                    <!-- <form role="form" method="POST" enctype="multipart/form-data">
+                <!-- <form role="form" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="card-header pb-0">
                             <div class="d-flex align-items-center">
@@ -166,19 +167,43 @@
                             </div>
                         </div>
                     </form> -->
-                </div>
             </div>
         </div>
-        @include('layouts.footers.auth.footer')
     </div>
+    @include('layouts.footers.auth.footer')
+</div>
 
-    <script>
-        window.onload = function() {
-            var localDateTime = new Date().toISOString().slice(0, 16); // Mengambil waktu saat ini dan memformatnya sesuai input datetime-local
-            var fillingTimeInput = document.getElementById('filling-time-input');
-            if (!fillingTimeInput.value) {
-                fillingTimeInput.value = localDateTime; // Hanya mengatur waktu jika belum ada nilai yang di-set
+<script>
+    window.onload = function() {
+        var localDateTime = new Date().toISOString().slice(0, 16); // Mengambil waktu saat ini dan memformatnya sesuai input datetime-local
+        var fillingTimeInput = document.getElementById('filling-time-input');
+        if (!fillingTimeInput.value) {
+            fillingTimeInput.value = localDateTime; // Hanya mengatur waktu jika belum ada nilai yang di-set
+        }
+    };
+</script>
+<!-- Chosen JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.8.7/chosen.jquery.min.js"></script>
+<script>
+    $(document).ready(function() {
+        // Inisialisasi Chosen
+        $('.chosen-select').chosen({
+            width: '100%'
+        });
+
+        // Pilih Semua Opsi
+        $('.chosen-select').on('change', function(evt, params) {
+            if (params.selected === 'all') {
+                // Pilih semua opsi
+                $('.chosen-select > option').prop('selected', true);
+                $('.chosen-select').trigger('chosen:updated');
+            } else if (params.deselected === 'all') {
+                // Hapus semua opsi
+                $('.chosen-select > option').prop('selected', false);
+                $('.chosen-select').trigger('chosen:updated');
             }
-        };
-    </script>
+        });
+    });
+</script>
 @endsection
