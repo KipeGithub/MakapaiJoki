@@ -54,6 +54,7 @@ class ATSmessageController extends Controller
             'priority' => 'required',
             'free_text_ats' => 'required',
             'file' => 'nullable|file',
+            'filld_by' => 'required',
         ]);
 
         $filePath = null;
@@ -69,6 +70,7 @@ class ATSmessageController extends Controller
                 'priority' => $request->input('priority'),
                 'free_text_ats' => $request->input('free_text_ats'),
                 'file_path' => $filePath,
+                'filld_by' => $request->input('filled-by-input'),
             ]);
         }
 

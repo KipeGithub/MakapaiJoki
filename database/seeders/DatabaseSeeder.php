@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
         //
         $this->call([
             UserWithRoleSeeder::class,
-            flighrroutesSeeder::class
+            flighrroutesSeeder::class,
+            LocationSeeder::class,
         ]);
-        
     }
 }

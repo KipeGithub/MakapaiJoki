@@ -8,6 +8,7 @@ use App\Models\flighr_routes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\DateTime;
 
 class FPLController extends Controller
 {
@@ -78,12 +79,17 @@ class FPLController extends Controller
             'total_set_hh_min' => 'required',
             'altn_ad' => 'required',
             'second_altn_ad' => 'required',
+            'other_fpl_i' => 'required',
         ]);
 
         // $filePath = null;
         // if ($request->hasFile('file')) {
         //     $filePath = $request->file('file')->store('uploads', 'public');
         // }
+
+        $timeInput = $request->input('time');
+        $dateObj = DateTime::createFromFormat('Y-m-d H:i:s', $timeInput);
+        $dateFormatted = $dateObj->format('Y-m-d');
 
         foreach ($toUserIds as $toUserId) {
             FPL::create([
@@ -105,7 +111,7 @@ class FPLController extends Controller
                 'equipment_1' => $request->input('equipment_1'),
                 'equipment_2' => $request->input('equipment_2'),
                 'depad' => $request->input('depad'),
-                'time' => $request->input('time'),
+                'time' => $dateFormatted,
                 'cruising_speed' => $request->input('cruising_speed'),
                 'level' => $request->input('level'),
                 'route' => $request->input('route'),
@@ -113,6 +119,7 @@ class FPLController extends Controller
                 'total_set_hh_min' => $request->input('total_set_hh_min'),
                 'altn_ad' => $request->input('altn_ad'),
                 'second_altn_ad' => $request->input('second_altn_ad'),
+                'other_fpl_i' => $request->input('other_fpl_i'),
             ]);
         }
 

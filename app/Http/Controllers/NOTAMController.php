@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\NOTAM;
 use App\Models\User;
+use App\Models\Location;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -19,7 +20,8 @@ class NOTAMController extends Controller
     {
         //
         $users = User::where('id', '!=', Auth::id())->get();
-        return view('notam.index', compact('users'));
+        $locations = Location::all();
+        return view('notam.index', compact('users', 'locations'));
     }
 
     /**

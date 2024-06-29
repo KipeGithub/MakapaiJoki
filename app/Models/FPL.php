@@ -36,6 +36,7 @@ class FPL extends Model
         'total_set_hh_min',
         'altn_ad',
         'second_altn_ad',
+        'other_fpl_i',
     ];
 
     public function fromUser()
